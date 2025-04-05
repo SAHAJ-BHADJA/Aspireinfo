@@ -122,7 +122,7 @@ function App() {
                   isScrolled ? "text-white" : ""
                 }`}
               >
-                <a href="#">Vetchfusion</a>
+                <a href="#">Vtechfusion</a>
               </span>
             </div>
 
@@ -271,7 +271,7 @@ function App() {
             </div>
             <div className="space-y-6 fade-up">
               <h2 className="text-4xl font-bold text-gradient">
-                About Vetchfusion
+                About Vtechfusion
               </h2>
               <p className="text-lg text-gray-600">
                 We're a team of passionate technologists, designers, and problem
@@ -446,10 +446,10 @@ function App() {
                 <div className="flex items-center group">
                   <Mail className="w-6 h-6 text-blue-600 mr-4 transition-transform group-hover:scale-110" />
                   <a
-                    href="mailto:hello@Vetchfusion.com"
+                    href="mailto:hello@Vtechfusion.com"
                     className="text-gray-600 hover:text-gray-900 transition-colors"
                   >
-                    hello@Vetchfusion.com
+                    hello@Vtechfusion.com
                   </a>
                 </div>
                 <div className="flex items-center group">
@@ -528,7 +528,7 @@ function App() {
       <footer className="bg-gray-900 text-gray-400 py-8">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p>© {new Date().getFullYear()} Vetchfusion. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Vtechfusion. All rights reserved.</p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="hover:text-white transition-colors">
                 Privacy
