@@ -6,7 +6,7 @@ import {
   Mail,
   Phone,
   Server,
-  Database,
+  // Database,
   Cloud,
   Menu,
   X,
@@ -14,15 +14,52 @@ import {
   Code2,
   Brain,
   // Cpu,
-  // GitBranch,
+  GitBranch,
   Globe,
   // Shield,
   Workflow,
+  Laptop,
+  Smartphone,
+  HeartPulse,
+  Lock,
+  MonitorSmartphone,
+  Boxes,
 } from "lucide-react";
+import CodeTypingImg from "./photos/Codetypingrafiki.svg";
+import AboutSectionImg from "./photos/Appdevelopment-rafiki.svg";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [formStatus, setFormStatus] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch("https://formspree.io/f/mjkyjbrz", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (res.ok) {
+        setFormStatus("success");
+        form.reset(); // reset the form fields
+      } else {
+        setFormStatus("error");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setFormStatus("error");
+    }
+  };
+
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,10 +75,12 @@ function App() {
         }
       });
     };
+    handleScroll();
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   // Technology categories data
   const techStack = [
     {
@@ -104,6 +143,7 @@ function App() {
       ],
     },
   ];
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
@@ -122,7 +162,7 @@ function App() {
                   isScrolled ? "text-white" : ""
                 }`}
               >
-                <a href="#">Vtechfusion</a>
+                Vtechfusion
               </span>
             </div>
 
@@ -246,10 +286,10 @@ function App() {
               </div>
             </div>
             <div className="relative animate-float">
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl blur-3xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 rounded-2xl blur-3xl"></div>
               <img
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80"
-                alt="Digital Innovation"
+                src={CodeTypingImg}
+                alt="Code Typing"
                 className="relative rounded-2xl shadow-2xl"
               />
             </div>
@@ -261,32 +301,78 @@ function App() {
       <section id="about" className="section-padding bg-white pattern-dots">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Image Section */}
             <div className="relative fade-up">
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl blur-3xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 rounded-2xl blur-3xl"></div>
               <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80"
+                src={AboutSectionImg}
                 alt="Our Team"
                 className="relative rounded-2xl shadow-xl"
               />
             </div>
+
+            {/* Textual Content */}
             <div className="space-y-6 fade-up">
-              <h2 className="text-4xl font-bold text-gradient">
+              <h2 className="text-4xl font-bold text-gradient text-center">
                 About Vtechfusion
               </h2>
-              <p className="text-lg text-gray-600">
-                We're a team of passionate technologists, designers, and problem
-                solvers dedicated to creating exceptional digital experiences.
-                With expertise in cutting-edge technologies and a human-centered
-                approach, we help businesses thrive in the digital age.
+              <p className="text-lg text-gray-600 text-justify">
+                We deliver innovative, scalable, and custom IT solutions that
+                empower businesses to thrive in the digital age. From startups
+                to global enterprises, we help clients streamline operations,
+                boost efficiency, and accelerate transformation through modern
+                web, mobile, and cloud technologies.
               </p>
-              <div className="grid grid-cols-2 gap-6 mt-8">
-                <div className="gradient-border p-6">
-                  <h3 className="text-3xl font-bold text-gradient">150+</h3>
-                  <p className="text-gray-600">Projects Completed</p>
+
+              {/* Mission & Vision side by side */}
+              <div className="grid md:grid-cols-2 gap-6 mt-8">
+                {/* Mission */}
+                <div className="gradient-border p-6 text-center">
+                  <h3 className="text-xl font-semibold text-blue-700 flex items-center justify-center gap-2 mb-2">
+                    🚀 Our Mission
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Deliver reliable and impactful IT solutions that drive real
+                    results.
+                  </p>
                 </div>
-                <div className="gradient-border p-6">
-                  <h3 className="text-3xl font-bold text-gradient">50+</h3>
-                  <p className="text-gray-600">Happy Clients</p>
+
+                {/* Vision */}
+                <div className="gradient-border p-6 text-center">
+                  <h3 className="text-xl font-semibold text-purple-700 flex items-center justify-center gap-2 mb-2">
+                    🌍 Our Vision
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Be a globally trusted tech partner turning ideas into
+                    exceptional digital experiences.
+                  </p>
+                </div>
+              </div>
+
+              {/* Core Values full width */}
+              <div className="gradient-border p-6 mt-6 text-center">
+                <h3 className="text-xl font-semibold text-indigo-700 flex items-center justify-center gap-2 mb-4">
+                  💡 Core Values
+                </h3>
+
+                {/* Two columns inside the card */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left text-sm text-gray-600">
+                  <ul className="list-disc list-inside space-y-2">
+                    <li>
+                      <strong>Innovation</strong> – Always evolving
+                    </li>
+                    <li>
+                      <strong>Integrity</strong> – Built on trust
+                    </li>
+                  </ul>
+                  <ul className="list-disc list-inside space-y-2">
+                    <li>
+                      <strong>Excellence</strong> – Quality above all
+                    </li>
+                    <li>
+                      <strong>Collaboration</strong> – Stronger together
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -305,36 +391,149 @@ function App() {
               Our Services
             </h2>
             <p className="text-lg text-gray-600">
-              We offer comprehensive digital solutions tailored to your business
-              needs
+              Comprehensive digital solutions tailored to elevate your business
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: <Server className="w-12 h-12 text-blue-600" />,
-                title: "Custom Software Development",
-                description:
-                  "Tailored solutions built with cutting-edge technology",
-              },
-              {
-                icon: <Cloud className="w-12 h-12 text-purple-600" />,
-                title: "Cloud Architecture",
-                description:
-                  "Scalable and secure cloud infrastructure solutions",
-              },
-              {
-                icon: <Database className="w-12 h-12 text-indigo-600" />,
-                title: "Data Analytics",
-                description: "Transform your data into actionable insights",
-              },
-            ].map((service, index) => (
-              <div key={index} className="service-card glass-card fade-up">
-                <div className="service-icon mb-6">{service.icon}</div>
-                <h3 className="text-xl font-semibold mb-4">{service.title}</h3>
-                <p className="text-gray-600">{service.description}</p>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* IT Solutions */}
+            <div className="service-card glass-card fade-up">
+              <div className="service-icon-wrapper mb-6">
+                <Server className="w-12 h-12 text-blue-600" />
               </div>
-            ))}
+              <h3 className="text-2xl font-bold mb-4 text-gradient">
+                IT Solutions
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Empowering your business with stability, scalability, and
+                security.
+              </p>
+
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <HeartPulse className="w-5 h-5 text-blue-600 mt-1" />
+                  <div>
+                    <h4 className="font-semibold">24/7 IT Support</h4>
+                    <p className="text-sm text-gray-600">
+                      Helpdesk, remote & on-site assistance
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Lock className="w-5 h-5 text-blue-600 mt-1" />
+                  <div>
+                    <h4 className="font-semibold">Cybersecurity</h4>
+                    <p className="text-sm text-gray-600">
+                      Firewall, threat detection, audits & training
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Cloud className="w-5 h-5 text-blue-600 mt-1" />
+                  <div>
+                    <h4 className="font-semibold">Cloud Services</h4>
+                    <p className="text-sm text-gray-600">
+                      Migrations, backups, Microsoft 365, Google Workspace
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Boxes className="w-5 h-5 text-blue-600 mt-1" />
+                  <div>
+                    <h4 className="font-semibold">Networking</h4>
+                    <p className="text-sm text-gray-600">
+                      Design, VPN, performance monitoring
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Web Development */}
+            <div className="service-card glass-card fade-up">
+              <div className="service-icon-wrapper mb-6">
+                <Laptop className="w-12 h-12 text-purple-600" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gradient">
+                Web Development
+              </h3>
+              <p className="text-gray-600 mb-6">
+                We build fast, modern, and engaging digital experiences.
+              </p>
+
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <MonitorSmartphone className="w-5 h-5 text-purple-600 mt-1" />
+                  <div>
+                    <h4 className="font-semibold">Responsive Websites</h4>
+                    <p className="text-sm text-gray-600">
+                      Built with React, Next.js, SEO-optimized
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Globe className="w-5 h-5 text-purple-600 mt-1" />
+                  <div>
+                    <h4 className="font-semibold">E-commerce Platforms</h4>
+                    <p className="text-sm text-gray-600">
+                      Shopify, WooCommerce, custom builds
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Code2 className="w-5 h-5 text-purple-600 mt-1" />
+                  <div>
+                    <h4 className="font-semibold">Custom Web Apps</h4>
+                    <p className="text-sm text-gray-600">
+                      Dashboards, SaaS, booking systems & more
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile App Development */}
+            <div className="service-card glass-card fade-up">
+              <div className="service-icon-wrapper mb-6">
+                <Smartphone className="w-12 h-12 text-indigo-600" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gradient">
+                Mobile App Development
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Crafting sleek, high-performance apps that deliver real value.
+              </p>
+
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <GitBranch className="w-5 h-5 text-indigo-600 mt-1" />
+                  <div>
+                    <h4 className="font-semibold">Cross-Platform Apps</h4>
+                    <p className="text-sm text-gray-600">
+                      Swift, Kotlin, Flutter, React Native
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Brain className="w-5 h-5 text-indigo-600 mt-1" />
+                  <div>
+                    <h4 className="font-semibold">UX/UI Design</h4>
+                    <p className="text-sm text-gray-600">
+                      Intuitive interfaces, user-first approach
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Workflow className="w-5 h-5 text-indigo-600 mt-1" />
+                  <div>
+                    <h4 className="font-semibold">App Maintenance</h4>
+                    <p className="text-sm text-gray-600">
+                      Updates, bug fixes, performance optimization
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -435,34 +634,74 @@ function App() {
       >
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12">
-            <div className="fade-up">
-              <h2 className="text-4xl font-bold mb-6 text-gradient">
-                Get in Touch
-              </h2>
-              <p className="text-lg text-gray-600 mb-8">
-                Ready to start your next project? Let's talk about your ideas.
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-center group">
-                  <Mail className="w-6 h-6 text-blue-600 mr-4 transition-transform group-hover:scale-110" />
-                  <a
-                    href="mailto:hello@Vtechfusion.com"
-                    className="text-gray-600 hover:text-gray-900 transition-colors"
-                  >
-                    hello@Vtechfusion.com
-                  </a>
+            {/* Contact Info */}
+            <div className="fade-up space-y-8">
+              <h2 className="text-4xl font-bold text-gradient">Get in Touch</h2>
+
+              {/* Phone, Email, Support */}
+              <div className="space-y-4 text-gray-600 text-sm">
+                <div className="flex items-center gap-3">
+                  <Phone className="w-5 h-5 text-blue-600" />
+                  <span>
+                    <strong>Phone:</strong> +91 (740) 567-3351
+                  </span>
                 </div>
-                <div className="flex items-center group">
-                  <Phone className="w-6 h-6 text-blue-600 mr-4 transition-transform group-hover:scale-110" />
-                  <a
-                    href="tel:+1234567890"
-                    className="text-gray-600 hover:text-gray-900 transition-colors"
-                  >
-                    (123) 456-7890
-                  </a>
+                <div className="flex items-center gap-3">
+                  <Mail className="w-5 h-5 text-blue-600" />
+                  <span>
+                    <strong>Email:</strong>{" "}
+                    <a
+                      href="mailto:hello@vtechfusion.com"
+                      className="hover:text-gray-900"
+                    >
+                      hello@vtechfusion.com
+                    </a>
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Mail className="w-5 h-5 text-blue-600" />
+                  <span>
+                    <strong>Support:</strong>{" "}
+                    <a
+                      href="mailto:support@vtechfusion.com"
+                      className="hover:text-gray-900"
+                    >
+                      support@vtechfusion.com
+                    </a>
+                  </span>
                 </div>
               </div>
-              <div className="flex space-x-6 mt-8">
+
+              {/* Address */}
+              <div className="text-gray-600 text-sm">
+                <h3 className="font-semibold text-blue-600 mb-2">
+                  🏢 Visit Us
+                </h3>
+                <p>
+                  Vtechfusion Technologies Pvt. Ltd.
+                  <br />
+                  6th Floor, Galaxy Business Park,
+                  <br />
+                  Near Science City Road, Sola,
+                  <br />
+                  Ahmedabad – 380060, Gujarat, India
+                </p>
+              </div>
+
+              {/* Office Hours */}
+              <div className="text-gray-600 text-sm">
+                <h3 className="font-semibold text-blue-600 mb-2">
+                  ⏰ Office Hours
+                </h3>
+                <p>
+                  Monday – Friday: 9:00 AM – 6:00 PM
+                  <br />
+                  Saturday – Sunday: Closed
+                </p>
+              </div>
+
+              {/* Social Icons */}
+              <div className="flex space-x-6 pt-4">
                 <a
                   href="#"
                   className="text-gray-400 hover:text-gray-900 transition-all hover:scale-110"
@@ -483,41 +722,84 @@ function App() {
                 </a>
               </div>
             </div>
+
+            {/* Contact Form */}
             <div className="gradient-border fade-up">
-              <form className="bg-white/80 backdrop-blur-sm p-8 rounded-xl space-y-6">
+              <form
+                onSubmit={handleSubmit}
+                action="https://formspree.io/f/mjkyjbrz"
+                method="POST"
+                className="bg-white/80 backdrop-blur-sm p-8 rounded-xl space-y-6"
+              >
+                <h3 className="text-xl font-semibold text-gray-700 mb-4 text-center">
+                  📬 Send Us a Message
+                </h3>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Name
                   </label>
                   <input
                     type="text"
+                    name="name"
+                    required
                     className="input-field"
                     placeholder="Your name"
                   />
                 </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Email
                   </label>
                   <input
                     type="email"
+                    name="email"
+                    required
                     className="input-field"
                     placeholder="your@email.com"
                   />
                 </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Subject
+                  </label>
+                  <input
+                    type="text"
+                    name="subject"
+                    required
+                    className="input-field"
+                    placeholder="Subject"
+                  />
+                </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Message
                   </label>
                   <textarea
+                    name="message"
                     rows={4}
+                    required
                     className="input-field"
                     placeholder="Tell us about your project"
                   />
                 </div>
+
                 <button type="submit" className="cta-button w-full">
                   <span>Send Message</span>
                 </button>
+                {formStatus === "success" && (
+                  <p className="text-green-600 text-center font-medium pt-2">
+                    ✅ Message sent successfully!
+                  </p>
+                )}
+                {formStatus === "error" && (
+                  <p className="text-red-600 text-center font-medium pt-2">
+                    ❌ Something went wrong. Please try again.
+                  </p>
+                )}
               </form>
             </div>
           </div>
@@ -528,7 +810,9 @@ function App() {
       <footer className="bg-gray-900 text-gray-400 py-8">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p>© {new Date().getFullYear()} Vtechfusion. All rights reserved.</p>
+            <p>
+              © {new Date().getFullYear()} Vtechfusion. All rights reserved.
+            </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="hover:text-white transition-colors">
                 Privacy

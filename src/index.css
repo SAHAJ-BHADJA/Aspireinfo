@@ -128,12 +128,12 @@
     @apply opacity-100;
   }
 
-  .service-card:hover .service-icon {
+  .service-card:hover .service-icon-wrapper {
     @apply scale-110 rotate-12;
   }
 
-  .service-icon {
-    @apply transition-transform duration-500;
+  .service-icon-wrapper {
+    @apply transition-transform duration-500 bg-white/50 w-16 h-16 rounded-xl flex items-center justify-center backdrop-blur-sm;
   }
 
   .input-field {
