@@ -24,7 +24,26 @@ import {
   Lock,
   MonitorSmartphone,
   Boxes,
+  Star,
+  Download,
+  Trophy,
+  Timer,
+  Users,
+  TrendingUp,
+  MessageSquare,
+  // Sparkles,
+  GraduationCap,
+  Building,
+  FileCheck,
+  PhoneCall,
+  BadgeCheck,
+  Quote,
 } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 import CodeTypingImg from "./photos/Codetypingrafiki.svg";
 import AboutSectionImg from "./photos/Appdevelopment-rafiki.svg";
 
@@ -32,6 +51,7 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [formStatus, setFormStatus] = useState<string | null>(null);
+  const [activeFilter, setActiveFilter] = useState("all");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,8 +79,6 @@ function App() {
     }
   };
 
-
-
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -81,66 +99,182 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Technology categories data
-  const techStack = [
+  const caseStudies = [
     {
-      title: "Programming Languages",
-      icon: <Code2 className="w-8 h-8 text-blue-600" />,
-      technologies: [
-        "Python",
-        "JavaScript",
-        "TypeScript",
-        "SQL",
-        "Java",
-        "C++",
-        "Git",
-        "Bash",
-        "Shell",
+      id: "novastyle",
+      title: "E-commerce Website Redesign",
+      client: "NovaStyle",
+      type: "Web Development",
+      industry: "Fashion & Retail",
+      techStack: ["React", "Node.js", "MongoDB", "Stripe API"],
+      image:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80",
+      overview:
+        "NovaStyle needed a modern, mobile-friendly e-commerce platform to replace their outdated site.",
+      solution:
+        "Built a fully responsive site with dynamic filters, Stripe-integrated checkout, and an admin dashboard.",
+      results: [
+        { icon: <Smartphone />, text: "70% increase in mobile conversions" },
+        { icon: <Timer />, text: "40% faster page load speed" },
+        { icon: <Users />, text: "35% increase in customer retention" },
       ],
     },
     {
-      title: "Web Technologies",
-      icon: <Globe className="w-8 h-8 text-purple-600" />,
-      technologies: [
-        "HTML",
-        "CSS",
-        "Tailwind CSS",
-        "React.js",
-        "Angular.js",
-        "Flask",
-        "Node.js",
-        "Express.js",
-        "Next.js",
+      id: "wellnest",
+      title: "Health Tracker Mobile App",
+      client: "Wellnest",
+      type: "Mobile App Development",
+      industry: "Health & Wellness",
+      techStack: ["Flutter", "Firebase", "Google Fit API"],
+      image:
+        "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80",
+      overview:
+        "A cross-platform app to help users track fitness goals, water intake, and mental wellness.",
+      solution:
+        "Built in Flutter with Google Fit/Apple Health integrations, daily reminders, and motivational content.",
+      results: [
+        { icon: <Star />, text: "4.7 average rating on app stores" },
+        { icon: <Download />, text: "20K+ downloads in 3 months" },
+        { icon: <Trophy />, text: "Featured in Top 10 Wellness Apps list" },
       ],
     },
     {
-      title: "AI & Machine Learning",
-      icon: <Brain className="w-8 h-8 text-green-600" />,
-      technologies: ["OpenAI API", "Transformers", "LLaMA-2 fine tuning"],
-    },
-    {
-      title: "Database & Cloud",
-      icon: <Cloud className="w-8 h-8 text-indigo-600" />,
-      technologies: [
-        "MySQL",
-        "MongoDB",
-        "AWS (S3, Glue, RDS)",
-        "Terraform",
-        "Grafana",
-        "Ansible",
+      id: "trackx",
+      title: "Custom CRM Platform for Logistics",
+      client: "TrackX Logistics",
+      type: "Web App",
+      industry: "Logistics",
+      techStack: ["Angular", ".NET Core", "SQL Server"],
+      image:
+        "https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&q=80",
+      overview:
+        "Needed a logistics-specific CRM for tracking, client handling, and fleet monitoring.",
+      solution:
+        "Built a role-based CRM with live GPS tracking, invoice automation, and driver performance analytics.",
+      results: [
+        { icon: <FileCheck />, text: "60% less manual data entry" },
+        { icon: <MessageSquare />, text: "Streamlined client communication" },
+        { icon: <TrendingUp />, text: "Increased operational efficiency" },
       ],
     },
     {
-      title: "Development Tools",
-      icon: <Workflow className="w-8 h-8 text-red-600" />,
-      technologies: [
-        "Docker",
-        "Kubernetes",
-        "Jenkins",
-        "GitHub",
-        "RESTful API",
-        "Agile Methodology",
+      id: "learnquest",
+      title: "Online Learning Platform",
+      client: "LearnQuest",
+      type: "Web & Mobile App",
+      industry: "EdTech",
+      techStack: ["Next.js", "Express.js", "PostgreSQL", "React Native"],
+      image:
+        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80",
+      overview:
+        "A platform to deliver interactive courses, live sessions, and mobile learning.",
+      solution:
+        "Developed responsive web and mobile apps with video streaming, quizzes, dashboards, and alerts.",
+      results: [
+        { icon: <GraduationCap />, text: "50K+ students registered" },
+        { icon: <Timer />, text: "3X engagement per session" },
+        { icon: <Building />, text: "Partnered with 10+ institutions" },
       ],
+    },
+    {
+      id: "zenith",
+      title: "Employee Self-Service Portal",
+      client: "Zenith Enterprises",
+      type: "Employee Portal",
+      industry: "Corporate HR",
+      techStack: ["Laravel", "Vue.js", "MySQL", "REST API"],
+      image:
+        "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80",
+      overview:
+        "Zenith needed a central dashboard for leave, payslips, HR policies, and internal requests.",
+      solution:
+        "Developed a secure role-based portal with document management, payroll, and leave workflows.",
+      results: [
+        { icon: <TrendingUp />, text: "90% drop in HR queries" },
+        { icon: <FileCheck />, text: "100% paperless leave system" },
+        { icon: <Users />, text: "Boosted employee engagement" },
+      ],
+    },
+    {
+      id: "smartfix",
+      title: "Customer Service Portal",
+      client: "SmartFix Appliances",
+      type: "Customer Support Portal",
+      industry: "Consumer Electronics",
+      techStack: ["ASP.NET Core", "React", "SQL Server", "Twilio API"],
+      image:
+        "https://images.unsplash.com/photo-1534670007418-fbb7f6cf32c3?auto=format&fit=crop&q=80",
+      overview:
+        "Required a portal for customers to register products, request support, and chat with agents.",
+      solution:
+        "Built a self-service platform with ticket tracking, Twilio chat, FAQs, and email/SMS alerts.",
+      results: [
+        { icon: <PhoneCall />, text: "50% reduction in support calls" },
+        { icon: <Timer />, text: "3x faster issue resolution" },
+        { icon: <BadgeCheck />, text: "+25% improvement in CSAT" },
+      ],
+    },
+  ];
+
+  const filters = [
+    { id: "all", label: "All Projects" },
+    { id: "web", label: "Web Development" },
+    { id: "mobile", label: "Mobile Apps" },
+    { id: "portal", label: "Portals" },
+  ];
+
+  const filteredCaseStudies =
+    activeFilter === "all"
+      ? caseStudies
+      : caseStudies.filter((study) =>
+          study.type.toLowerCase().includes(activeFilter)
+        );
+
+  const testimonials = [
+    {
+      quote:
+        "Working with VTechFusion has been an outstanding experience. From the initial consultation to the final delivery, their team showcased professionalism, deep technical knowledge, and a commitment to quality. They helped us streamline our internal systems and developed a custom software solution that significantly improved our efficiency. Communication was always clear and timely, and their support team continues to go above and beyond. We look forward to collaborating on future projects!",
+      author: "Alicia Tran",
+      role: "Operations Manager",
+      company: "NovaTech Solutions",
+      image:
+        "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80",
+    },
+    {
+      quote:
+        "We needed a tech partner to help us launch a multi-store eCommerce platform, and VTechFusion delivered beyond expectations. The platform is sleek, fast, and easy to manage. Their team was responsive, flexible, and always ready to adjust based on our needs.",
+      author: "Michelle Grant",
+      role: "Head of Digital",
+      company: "Bluetan Retail",
+      image:
+        "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80",
+    },
+    {
+      quote:
+        "Cybersecurity was a huge concern for our firm. VTechFusion conducted a full audit, implemented enterprise-grade security protocols, and even trained our staff. Since then, we've had zero security incidents. They're the real deal.",
+      author: "Rahul Mehta",
+      role: "CIO",
+      company: "VantaDigital Financial Group",
+      image:
+        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80",
+    },
+    {
+      quote:
+        "We were working with large volumes of research data and needed a custom database and analytics dashboard. VTechFusion delivered an elegant, efficient solution with excellent documentation and training. It's made our team significantly more productive.",
+      author: "Dr. Elena Rivera",
+      role: "Lead Scientist",
+      company: "BioMatics Research",
+      image:
+        "https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?auto=format&fit=crop&q=80",
+    },
+    {
+      quote:
+        "Reliable tech is vital in our industry. VTechFusion built a real-time GPS tracking system with seamless mobile integration for our drivers. The rollout was smooth, and downtime has dropped drastically. Highly recommend it.",
+      author: "Jason Cole",
+      role: "Fleet Manager",
+      company: "TrackLoop Transportation",
+      image:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80",
     },
   ];
 
@@ -148,114 +282,88 @@ function App() {
     <div className="min-h-screen bg-white">
       {/* Navigation */}
       <nav
-        className={`fixed w-full z-50 transition-all duration-500 ${
+        className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 min-w-[1024px] transition-all duration-500 rounded-full px-6 py-2 ${
           isScrolled
-            ? "bg-gray-900/95 backdrop-blur-md shadow-xl"
+            ? "bg-gray-900/80 backdrop-blur-md shadow-xl"
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex justify-between items-center h-20">
-            <div className="flex-shrink-0">
-              <span
-                className={`text-2xl font-bold text-gradient ${
-                  isScrolled ? "text-white" : ""
-                }`}
-              >
-                Vtechfusion
-              </span>
-            </div>
+        <div className="flex justify-between items-center space-x-8">
+          <div className="flex-shrink-0">
+            <span
+              className={`text-2xl font-bold text-gradient ${
+                isScrolled ? "text-white" : ""
+              }`}
+            >
+              Vtechfusion
+            </span>
+          </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
-              <a
-                href="#about"
-                className={`nav-link ${
-                  isScrolled ? "text-gray-300 hover:text-white" : ""
-                }`}
-              >
-                About
-              </a>
-              <a
-                href="#services"
-                className={`nav-link ${
-                  isScrolled ? "text-gray-300 hover:text-white" : ""
-                }`}
-              >
-                Services
-              </a>
-              <a
-                href="#case-studies"
-                className={`nav-link ${
-                  isScrolled ? "text-gray-300 hover:text-white" : ""
-                }`}
-              >
-                Case Studies
-              </a>
-              <a
-                href="#contact"
-                className={`nav-link ${
-                  isScrolled ? "text-gray-300 hover:text-white" : ""
-                }`}
-              >
-                Contact
-              </a>
-              <a href="#contact" className="cta-button">
-                <span>Get Started</span>
-              </a>
-            </div>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            <a
+              href="#about"
+              className={`nav-link ${
+                isScrolled ? "text-gray-300 hover:text-white" : ""
+              }`}
+            >
+              About
+            </a>
+            <a
+              href="#services"
+              className={`nav-link ${
+                isScrolled ? "text-gray-300 hover:text-white" : ""
+              }`}
+            >
+              Services
+            </a>
+            <a
+              href="#client-review"
+              className={`nav-link ${
+                isScrolled ? "text-gray-300 hover:text-white" : ""
+              }`}
+            >
+              Client Review
+            </a>
+            <a
+              href="#case-studies"
+              className={`nav-link ${
+                isScrolled ? "text-gray-300 hover:text-white" : ""
+              }`}
+            >
+              Case Studies
+            </a>
+            <a
+              href="#contact"
+              className={`nav-link ${
+                isScrolled ? "text-gray-300 hover:text-white" : ""
+              }`}
+            >
+              Contact
+            </a>
+            <a href="#contact" className="cta-button">
+              <span>Get Started</span>
+            </a>
+          </div>
 
-            {/* Mobile menu button */}
-            <div className="md:hidden">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className={`transition-colors ${
-                  isScrolled
-                    ? "text-white hover:text-gray-300"
-                    : "text-gray-700 hover:text-gray-900"
-                }`}
-              >
-                {isMenuOpen ? (
-                  <X className="h-6 w-6" />
-                ) : (
-                  <Menu className="h-6 w-6" />
-                )}
-              </button>
-            </div>
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={`transition-colors ${
+                isScrolled
+                  ? "text-white hover:text-gray-300"
+                  : "text-gray-700 hover:text-gray-900"
+              }`}
+            >
+              {isMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
           </div>
         </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-gray-900/95 backdrop-blur-md border-t border-gray-800">
-            <div className="px-4 pt-2 pb-3 space-y-1">
-              <a
-                href="#about"
-                className="block px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
-              >
-                About
-              </a>
-              <a
-                href="#services"
-                className="block px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
-              >
-                Services
-              </a>
-              <a
-                href="#case-studies"
-                className="block px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
-              >
-                Case Studies
-              </a>
-              <a
-                href="#contact"
-                className="block px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
-              >
-                Contact
-              </a>
-            </div>
-          </div>
-        )}
       </nav>
 
       {/* Hero Section */}
@@ -538,83 +646,165 @@ function App() {
         </div>
       </section>
 
+      {/* Client review Section */}
+      <section
+        id="client-review"
+        className="section-padding bg-gradient-to-br from-gray-50 via-white to-blue-50 pattern-grid"
+      >
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16 fade-up">
+            <h2 className="text-4xl font-bold mb-6 text-gradient">
+              Client Reviews
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Don't just take our word for it. Here's what our clients have to
+              say about working with us.
+            </p>
+          </div>
+
+          <div className="testimonials-slider fade-up">
+            <Swiper
+              modules={[Autoplay, Pagination, Navigation]}
+              spaceBetween={30}
+              slidesPerView={1}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+              autoplay={{
+                delay: 6000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              pagination={{ clickable: true }}
+              navigation
+              className="pb-12"
+            >
+              {testimonials.map((testimonial, index) => (
+                <SwiperSlide key={index}>
+                  <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow relative">
+                    <Quote className="absolute text-blue-100 w-16 h-16 -top-2 -left-2" />
+                    <div className="relative">
+                      <p className="text-gray-600 mb-6 line-clamp-6">
+                        {testimonial.quote}
+                      </p>
+                      <div className="flex items-center gap-4">
+                        <img
+                          src={testimonial.image}
+                          alt={testimonial.author}
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                        <div>
+                          <h4 className="font-semibold text-gray-900">
+                            {testimonial.author}
+                          </h4>
+                          <p className="text-sm text-gray-500">
+                            {testimonial.role}
+                          </p>
+                          <p className="text-sm text-blue-600">
+                            {testimonial.company}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </div>
+      </section>
+
       {/* Case Studies Section */}
       <section
         id="case-studies"
         className="section-padding bg-gray-900 text-white pattern-dots"
       >
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-16 text-center text-gradient">
-            Case Studies
-          </h2>
+          <div className="text-center mb-16 fade-up">
+            <h2 className="text-4xl font-bold mb-6 text-gradient">
+              Case Studies
+            </h2>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Explore our portfolio of successful projects and see how we've
+              helped businesses transform their digital presence.
+            </p>
+          </div>
+
+          {/* Filters */}
+          <div className="flex flex-wrap justify-center gap-4 mb-12 fade-up">
+            {filters.map((filter) => (
+              <button
+                key={filter.id}
+                onClick={() => setActiveFilter(filter.id)}
+                className={`px-6 py-2 rounded-full transition-all duration-300 ${
+                  activeFilter === filter.id
+                    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white"
+                    : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                }`}
+              >
+                {filter.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Case Studies Grid */}
           <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                title: "AI-Powered Analytics Platform",
-                description:
-                  "Revolutionizing data analysis with machine learning",
-                image:
-                  "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80",
-                tech: "Python, TensorFlow, React",
-              },
-              {
-                title: "E-Commerce Revolution",
-                description: "Next-generation shopping experience",
-                image:
-                  "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80",
-                tech: "Next.js, Node.js, PostgreSQL",
-              },
-            ].map((study, index) => (
+            {filteredCaseStudies.map((study) => (
               <div
-                key={index}
+                key={study.id}
                 className="group bg-gray-800 rounded-xl overflow-hidden card-hover fade-up"
               >
-                <div className="relative overflow-hidden">
+                <div className="relative overflow-hidden aspect-video">
                   <img
                     src={study.image}
                     alt={study.title}
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60"></div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">{study.title}</h3>
-                  <p className="text-gray-400 mb-4">{study.description}</p>
-                  <p className="text-sm text-gray-500">{study.tech}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Technology Stack Section */}
-      <section id="tech-stack" className="section-padding bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16 fade-up">
-            <h2 className="text-4xl font-bold mb-6 text-gradient">
-              Our Technology Stack
-            </h2>
-            <p className="text-lg text-gray-600">
-              We leverage cutting-edge technologies to deliver exceptional
-              solutions
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {techStack.map((category, index) => (
-              <div key={index} className="gradient-border fade-up">
-                <div className="bg-white/80 backdrop-blur-sm p-8 rounded-xl">
-                  <div className="flex items-center mb-6">
-                    <div className="service-icon">{category.icon}</div>
-                    <h3 className="text-xl font-semibold ml-4">
-                      {category.title}
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <span className="inline-block px-3 py-1 bg-blue-600 text-white text-sm rounded-full mb-2">
+                      {study.industry}
+                    </span>
+                    <h3 className="text-xl font-semibold text-white">
+                      {study.title}
                     </h3>
                   </div>
+                </div>
+
+                <div className="p-6">
+                  <div className="mb-4">
+                    <h4 className="text-lg font-semibold mb-2">Overview</h4>
+                    <p className="text-gray-400">{study.overview}</p>
+                  </div>
+
+                  <div className="mb-4">
+                    <h4 className="text-lg font-semibold mb-2">Solution</h4>
+                    <p className="text-gray-400">{study.solution}</p>
+                  </div>
+
+                  <div className="mb-6">
+                    <h4 className="text-lg font-semibold mb-3">Key Results</h4>
+                    <div className="space-y-3">
+                      {study.results.map((result, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center gap-3 text-gray-300"
+                        >
+                          <div className="w-5 h-5 text-blue-500">
+                            {result.icon}
+                          </div>
+                          <span>{result.text}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
                   <div className="flex flex-wrap gap-2">
-                    {category.technologies.map((tech, techIndex) => (
+                    {study.techStack.map((tech, i) => (
                       <span
-                        key={techIndex}
-                        className="px-3 py-1 bg-white rounded-full text-sm text-gray-700 shadow-sm hover:shadow-md transition-shadow"
+                        key={i}
+                        className="px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm"
                       >
                         {tech}
                       </span>

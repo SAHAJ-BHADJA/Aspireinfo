@@ -145,6 +145,62 @@
   .input-field:focus {
     @apply transform scale-[1.02];
   }
+
+  .case-study-card {
+    @apply relative overflow-hidden rounded-xl transition-all duration-500;
+  }
+
+  .case-study-card:hover {
+    @apply transform scale-[1.02] shadow-2xl;
+  }
+
+  .case-study-image {
+    @apply relative overflow-hidden;
+  }
+
+  .case-study-image img {
+    @apply transition-transform duration-500;
+  }
+
+  .case-study-card:hover .case-study-image img {
+    @apply scale-110;
+  }
+
+  .tech-tag {
+    @apply px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm 
+           transition-all duration-300 hover:bg-gray-600;
+  }
+
+  .testimonials-slider {
+    @apply relative;
+  }
+
+  .testimonials-slider .swiper-pagination {
+    @apply bottom-0;
+  }
+
+  .testimonials-slider .swiper-pagination-bullet {
+    @apply w-2.5 h-2.5 bg-gray-300 opacity-100;
+  }
+
+  .testimonials-slider .swiper-pagination-bullet-active {
+    @apply bg-blue-600;
+  }
+
+  .testimonials-slider .swiper-button-prev,
+  .testimonials-slider .swiper-button-next {
+    @apply text-blue-600 opacity-0 transition-opacity duration-300;
+  }
+
+  .testimonials-slider:hover .swiper-button-prev,
+  .testimonials-slider:hover .swiper-button-next {
+    @apply opacity-100;
+  }
+
+  .testimonials-slider .swiper-button-prev:after,
+  .testimonials-slider .swiper-button-next:after {
+    @apply text-2xl;
+  }
 }
 
 /* Scroll animations */
