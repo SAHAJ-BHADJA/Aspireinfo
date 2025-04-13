@@ -282,13 +282,20 @@ function App() {
     <div className="min-h-screen bg-white">
       {/* Navigation */}
       <nav
-        className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 min-w-[1024px] transition-all duration-500 rounded-full px-6 py-2 ${
-          isScrolled
-            ? "bg-gray-900/80 backdrop-blur-md shadow-xl"
-            : "bg-transparent"
-        }`}
+        className={`
+          fixed top-4 left-1/2 transform -translate-x-1/2 z-50 
+          w-full max-w-[95%] md:max-w-[1024px] 
+          transition-all duration-500 
+          rounded-lg px-6 py-2
+          ${
+            isScrolled
+              ? "bg-gray-900/80 backdrop-blur-md shadow-xl"
+              : "bg-transparent"
+          }
+        `}
       >
-        <div className="flex justify-between items-center space-x-8">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
           <div className="flex-shrink-0">
             <span
               className={`text-2xl font-bold text-gradient ${
@@ -346,7 +353,7 @@ function App() {
             </a>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -364,6 +371,72 @@ function App() {
             </button>
           </div>
         </div>
+
+        {/* Mobile Menu (shown when isMenuOpen is true) */}
+        {isMenuOpen && (
+          <div
+            className={`mt-4 flex flex-col items-start space-y-4 rounded-lg 
+                      px-4 py-2 md:hidden
+                      ${
+                        isScrolled
+                          ? "bg-gray-900/80 backdrop-blur-md"
+                          : "bg-white"
+                      }`}
+          >
+            <a
+              href="#about"
+              onClick={() => setIsMenuOpen(false)}
+              className={`block ${
+                isScrolled ? "text-gray-300 hover:text-white" : "text-gray-800"
+              }`}
+            >
+              About
+            </a>
+            <a
+              href="#services"
+              onClick={() => setIsMenuOpen(false)}
+              className={`block ${
+                isScrolled ? "text-gray-300 hover:text-white" : "text-gray-800"
+              }`}
+            >
+              Services
+            </a>
+            <a
+              href="#client-review"
+              onClick={() => setIsMenuOpen(false)}
+              className={`block ${
+                isScrolled ? "text-gray-300 hover:text-white" : "text-gray-800"
+              }`}
+            >
+              Client Review
+            </a>
+            <a
+              href="#case-studies"
+              onClick={() => setIsMenuOpen(false)}
+              className={`block ${
+                isScrolled ? "text-gray-300 hover:text-white" : "text-gray-800"
+              }`}
+            >
+              Case Studies
+            </a>
+            <a
+              href="#contact"
+              onClick={() => setIsMenuOpen(false)}
+              className={`block ${
+                isScrolled ? "text-gray-300 hover:text-white" : "text-gray-800"
+              }`}
+            >
+              Contact
+            </a>
+            <a
+              href="#contact"
+              onClick={() => setIsMenuOpen(false)}
+              className="cta-button mt-2"
+            >
+              <span>Get Started</span>
+            </a>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
